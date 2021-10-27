@@ -1,17 +1,20 @@
+from math import sqrt
+
 def get_leap_years(start, end):
     '''
     Afiseaza anii biscti din intervalul start si end
     :param start: primul an
     :param end: al doilea an
     '''
-    list=[]
+    lst=[]
     for i in range(start,end+1):
-        if i%400==0:
-            list.append(i)
-    return list
+        if i%400==0 or (i%100!=0 and i%4==0):
+            lst.append(i)
+    return lst
+
 def test_get_leap_years():
-    assert get_leap_years(1,1000)=="400 800"
-    assert get_leap_years(2400, 3765) == "2400 2800 3200 3600"
+    assert get_leap_years(1582, 1600)==[1584, 1588, 1592, 1596, 1600]
+    assert get_leap_years(1701,1720)==[1704, 1708, 1712, 1716, 1720]
 
 
 def get_perfect_squares(start, end):
@@ -22,13 +25,13 @@ def get_perfect_squares(start, end):
     '''
     lst=[]
     for i in range(start,end+1):
-        for j in range(2,i//2+1):
-            if i/j==0:
-                lst.append(i)
+        if int(sqrt(i))==sqrt(i):
+            lst.append(i)
     return lst
+
 def test_get_perfect_squares():
-    assert get_perfect_squares(1,10)=="1 4 9"
-    assert get_perfect_squares(25, 37)=="25 36"
+    assert get_perfect_squares(1,10)==[1, 4, 9]
+    assert get_perfect_squares(25, 37)==[25, 36]
 
 def is_palindrome(n):
     '''
@@ -51,15 +54,14 @@ def test_is_palindrome():
     assert is_palindrome(97) is False
 
 def main():
-    print('1.Afiseaza toti anii bisecti intre doi ani dati')
-    print('2.Afiseaza toate patratele perfecte intre doua numere date')
-    print('3.Determină dacă un număr dat este palindrom.')
-    print('x.Iesire din program')
     test_get_leap_years()
-    test_get_perfect_square()
+    test_get_perfect_squares()
     test_is_palindrome()
     while True:
-        print_menu()
+        print('1.Afiseaza toti anii bisecti intre doi ani dati')
+        print('2.Afiseaza toate patratele perfecte intre doua numere date')
+        print('3.Determină dacă un număr dat este palindrom.')
+        print('x.Iesire din program')
         opt=input('Alege optiunea: ')
         if opt=='1':
             start=int(input('Dati primul nr:'))
